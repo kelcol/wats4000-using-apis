@@ -1,35 +1,38 @@
 <template>
-  <div class="rhymesaurus">
-    <form>
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button v-on:onclick="findwords" type="submit">Search</button></p>
+
+  <div class="rhymesaurus">    
+
+    <form v-on:submit.prevent="findWords">
+      <p>Find rhymes for 
+        <input type="text" v-model="rhyme"> related to 
+        <input type="text" v-model="phrase">
+        <button type="submit">Search</button></p>
     </form>
-    <!-- TODO: Add a v-if conditional to make this results list show only if there are results and if the length is greater than 0. -->
-    <ul class="results">
-      <!-- TODO: Add a v-for loop to the LI tag to loop through the items in the results. -->
-      <li class="item">
-        <p><strong><!-- TODO: Output word --></strong></p>
-        <p><!-- TODO: Output score --></p>
+
+    <ul class="results" v-if="results && results.length > 0">
+      <li class="item" v-for="item of results">
+        <p><strong>{{ item.word }}</strong></p>
+        <p>{{ item.score }}</p>
+        <!--TODO: Change color of depending on how many syllables -->
+        <p>{{ item.numSyllables }}</p>
       </li>
     </ul>
 
-    <!-- TODO: Add a `v-else-if` conditional to make this message only show if there are no results returned (but we have actually attempted a request). -->
-    <div class="no-results">
+    <div class="no-results" v-else-if="results && results.length === 0">
       <h2>No Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
 
-    <!-- TODO: Add a v-if conditional to make this errors list show only if there are errors and if the length is greater than 0. -->
-    <ul class="errors">
-      <!-- TODO: Add a v-for loop to the LI tag to loop through the errors. -->
-      <li>
-        <!-- TODO: Output each error. -->
-      </li>
+    <ul class="errors" v-if="errors.length > 0">
+      <li v-for="error in errors">{{ error.message }}</li>
     </ul>
+
   </div>
+
 </template>
 
 <script>
-// Import axios
+
 import axios from 'axios';
 
 export default {
@@ -38,28 +41,30 @@ export default {
     return {
       results: null,
       errors: [],
-      phrase: '',
-      rhyme: ''
-    }
+      phrase: this.phrase,
+      rhyme: this.rhyme,
+    };
   },
   methods: {
-    findWords: function(e) {
-      const url = `https://api.datamuse.com/words`;
+    findWords: function() {
+      console.log(this.response)
+      const url = "https://api.datamuse.com/words";
       axios.get(url, {
         params: {
           ml: this.phrase,
-          rel_ehy: this.rhyme
+          rel_rhy: this.rhyme
         }
       })
-      .then(response => {
-        this.results = response.data;
+      .then(response =>{
+        this.results= response.data;
       })
       .catch(error => {
         this.errors.push(error);
-      })
+      });
       }
     }
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
