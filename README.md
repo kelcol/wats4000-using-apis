@@ -35,20 +35,20 @@ modify to fulfill them.
 
 `<template>`
 
-- [ ] Set up an event handler to trigger the `findWords` method when the `form` is submitted
-- [ ] Use a conditional to control the display of the `ul.results` element so it only displays when results are ready to be shown
-- [ ] Use a loop to process all of the results into list items
+- [X] Set up an event handler to trigger the `findWords` method when the `form` is submitted
+- [X] Use a conditional to control the display of the `ul.results` element so it only displays when results are ready to be shown
+- [X] Use a loop to process all of the results into list items
     * Output the word in each list item
     * Output the score for each word in each list item
-- [ ] Use a conditional to control the display of the `.no-results` message, which should only show when the user has attempted a search and no words have been found
-- [ ] Use a conditional to control the display of the `ul.errors` element so it only displays when there are errors ready to be shown
-- [ ] Use a loop to process all of the errors and display them for the user
+- [X] Use a conditional to control the display of the `.no-results` message, which should only show when the user has attempted a search and no words have been found
+- [X] Use a conditional to control the display of the `ul.errors` element so it only displays when there are errors ready to be shown
+- [X] Use a loop to process all of the errors and display them for the user
 
 `<script>`
 
-- [ ] Import axios for use in the component logic
-- [ ] Create a method called `findWords` (don't neglect to add the `methods` attribute to this component)
-- [ ] Within the `findWords` method, create an `axios.get()` statement that will make a request to `https://api.datamuse.com/words`
+- [X] Import axios for use in the component logic
+- [X] Create a method called `findWords` (don't neglect to add the `methods` attribute to this component)
+- [X] Within the `findWords` method, create an `axios.get()` statement that will make a request to `https://api.datamuse.com/words`
     * Define the `params` for `ml` (which should map to the `phrase`) and `rel_rhy` (which should map to the `rhyme`)
     * Define a `then` clause that sets the component's `results` value to the value of `response.data`
     * Define a `catch` clause that will add any error to the `errors` array in the component
