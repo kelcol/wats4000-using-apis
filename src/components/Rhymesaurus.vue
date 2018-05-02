@@ -1,7 +1,7 @@
 <template>
   <div class="rhymesaurus">
-    <form><!-- TODO: Use a submit event handler to allow the findWords method to handle this form submission. -->
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
+    <form>
+      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button v-on:onclick="findwords" type="submit">Search</button></p>
     </form>
     <!-- TODO: Add a v-if conditional to make this results list show only if there are results and if the length is greater than 0. -->
     <ul class="results">
@@ -29,7 +29,8 @@
 </template>
 
 <script>
-// TODO: Import axios properly here.
+// Import axios
+import axios from 'axios';
 
 export default {
   name: 'Rhymesaurus',
@@ -40,19 +41,25 @@ export default {
       phrase: '',
       rhyme: ''
     }
+  },
+  methods: {
+    findWords: function(e) {
+      const url = `https://api.datamuse.com/words`;
+      axios.get(url, {
+        params: {
+          ml: this.phrase,
+          rel_ehy: this.rhyme
+        }
+      })
+      .then(response => {
+        this.results = response.data;
+      })
+      .catch(error => {
+        this.errors.push(error);
+      })
+      }
+    }
   }
-    // TODO: Create the findWords method.
-
-    // TODO: Complete the following inside of the findWords method.
-      // TODO: Create an axios.get statement that requests from https://api.datamuse.com/words
-      // TODO: Create the params object
-      // TODO: Set the `ml` parameter equal to `this.phrase`
-      // TODO: Set the `rel_ehy` parameter equal to `this.rhyme`
-      // TODO: Create a `then` clause
-      // TODO: Inside the `then` clause, set `this.results` equal to `response.data`
-      // TODO: Create a `catch` clause
-      // TODO: Inside the `catch` clause, push the new `error` onto the `this.errors` array
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
