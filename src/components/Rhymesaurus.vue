@@ -1,70 +1,75 @@
 <template>
-
-  <div class="rhymesaurus">    
+  <div class="rhymesaurus">
+    <h1>Rhymesaurus: The Rhyming Thesaurus</h1>
+    <ol>
+      <li>
+        <router-link v-bind:to="{name: 'SoundsLike'}">Sounds Like</router-link>
+      </li>
+      &#8226;
+      <li>
+        <router-link v-bind:to="{name: 'Rhymesaurus'}">Rhymesaurus</router-link>
+      </li>
+    </ol>
 
     <form v-on:submit.prevent="findWords">
-      <p>Find rhymes for 
-        <input type="text" v-model="rhyme"> related to 
+      <p>Find rhymes for
+        <input type="text" v-model="rhyme"> related to
         <input type="text" v-model="phrase">
-        <button type="submit">Search</button></p>
+        <button type="submit">Search</button>
+      </p>
     </form>
-
-    <ul class="results" v-if="results && results.length > 0">
-      <li class="item" v-for="item of results">
-        <p><strong>{{ item.word }}</strong></p>
+    <ul v-if="results && results.length > 0" class="results">
+      <li v-for="item in results" class="item">
+        <p>
+          <strong>{{ item.word }}</strong>
+        </p>
         <p>{{ item.score }}</p>
-        <!--TODO: Change color of depending on how many syllables -->
-        <p>{{ item.numSyllables }}</p>
       </li>
     </ul>
 
-    <div class="no-results" v-else-if="results && results.length === 0">
+    <div v-else-if="results && results.length === 0" class="no-results">
       <h2>No Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
 
-    <ul class="errors" v-if="errors.length > 0">
-      <li v-for="error in errors">{{ error.message }}</li>
+    <ul v-if="errors.length > 0" class="errors">
+      <li v-for="error in errors">
+        {{ error.message}}
+      </li>
     </ul>
-
   </div>
-
 </template>
 
+
 <script>
-
 import axios from 'axios';
-
 export default {
   name: 'Rhymesaurus',
   data () {
     return {
       results: null,
       errors: [],
-      phrase: this.phrase,
-      rhyme: this.rhyme,
-    };
+      phrase: '',
+      rhyme: ''
+    }
   },
   methods: {
     findWords: function() {
-      console.log(this.response)
-      const url = "https://api.datamuse.com/words";
-      axios.get(url, {
+      axios.get('https://api.datamuse.com/words', {
         params: {
-          ml: this.phrase,
-          rel_rhy: this.rhyme
+        ml: this.phrase,
+        rel_rhy: this.rhyme,
         }
       })
-      .then(response =>{
-        this.results= response.data;
+      .then( response => {
+        this.results = response.data;
       })
-      .catch(error => {
+      .catch( error => {
         this.errors.push(error);
-      });
-      }
+      })
     }
   }
-
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -72,7 +77,6 @@ export default {
 .rhymesaurus {
   font-size: 1.4rem;
 }
-
 input[type="text"]{
   border-top: none;
   border-left: none;
@@ -97,12 +101,10 @@ button{
 h1, h2 {
   font-weight: normal;
 }
-
 ul.results {
   list-style-type: none;
   padding: 0;
 }
-
 .results li {
   display: inline-block;
   margin: 10px;
@@ -116,13 +118,16 @@ ul.results {
 ul.errors {
   list-style-type: none;
 }
+ol li {
+  list-style-type: none;
+  display: inline;
+}
 .errors li {
   border: 1px solid red;
   color: red;
   padding: 0.5rem;
   margin: 10px 0;
 }
-
 a {
   color: #42b983;
 }
