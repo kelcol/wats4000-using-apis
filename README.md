@@ -57,26 +57,26 @@ modify to fulfill them.
 
 (Please do not actually name the new component `NewComponent.vue`. This name is only being used for reference here. Name the component according to whatever feature it provides.)
 
-- [ ] Create a new component (use the boilerplate component code, or copy the component you just created)
-- [ ] Refer to the Datamuse API documentation to determine a way to modify your code to provide an alternative way to find words (e.g. "sounds like", "related to", "adjectives that go with a word", "words that often follow a word", etc.).
-- [ ] Implement a similar interface to perform this new search
+- [X] Create a new component (use the boilerplate component code, or copy the component you just created)
+- [X] Refer to the Datamuse API documentation to determine a way to modify your code to provide an alternative way to find words (e.g. "sounds like", "related to", "adjectives that go with a word", "words that often follow a word", etc.).
+- [X] Implement a similar interface to perform this new search
     * Create the necessary template to allow the user to enter at least one search parameter
     * Create the necessary method to handle the form submission and API request
-- [ ] Implement the proper template elements to output the results to the user
+- [X] Implement the proper template elements to output the results to the user
     * Show all relevant results returned by the API
     * Show all errors to the user
     * Show a message when no results have been found, so the user knows the system is working even though the data is not there
 
 **`/src/router/index.js`**
 
-- [ ] Add the new component to the import statements in the router definitions file
-- [ ] Add the new route to the router definitions list (use a sensible URL and name for it)
+- [X] Add the new component to the import statements in the router definitions file
+- [X] Add the new route to the router definitions list (use a sensible URL and name for it)
 
 **both `/src/compnents/Rhymesaurus.vue` and `/src/components/NewComponent.vue`**
 
-- [ ] Add navigation elements to provide links between the two search pages
-- [ ] Use proper `router-link` tags to create links
-- [ ] Allow the user to easily switch between the two pages in the application.
+- [X] Add navigation elements to provide links between the two search pages
+- [X] Use proper `router-link` tags to create links
+- [X] Allow the user to easily switch between the two pages in the application.
 
 ## Stretch Goals
 If you are looking for additional challenges with this project, consider working
